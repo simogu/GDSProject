@@ -10,10 +10,6 @@ $(document).ready(function () {
 		function(data) {
 			if(data.trim()=="ok") {
 				document.getElementById("registerRoom").style.visibility="visible";
-			}else if(data.trim()=="error"){
-				//alert("Error!");
-			} else{
-				alert("\""+data+"\"");
 			}
 		});
 		

@@ -9,50 +9,47 @@ $(document).ready(function () {
 		function(data) {
 			if(data.trim()=="ok") {
 				document.getElementById("registerRoom").style.visibility="visible";
-			}else if(data.trim()=="error"){
-				//alert("Error!");
-			} else{
-				alert("\""+data+"\"");
 			}
 		});
 		
 	$("#checkBooking").click(function(){
 		
-		var sDate = $("#startdate").val()
-		var sTime = $("#starttime").val()
-		var eDate = $("#enddate").val()
-		var eTime = $("#endtime").val()
-		var start = convertDate(sDate,sTime);
-		var end = convertDate(eDate,eTime);
+		var sDate = $("#startdate").val();
+		var sTime = $("#starttime").val();
+		var eDate = $("#enddate").val();
+		var eTime = $("#endtime").val();
 		
-		//var ul = document.getElementById("bookingList");
-		//while(ul.firstChild) ul.removeChild(ul.firstChild);
-		
+		if( sDate =='' || sTime =='' || eDate =='' || eTime ==''){
+			//$('input[type="text"],input[type="password"]').css("border","2px solid red");
+			//$('input[type="text"],input[type="password"]').css("box-shadow","0 0 3px red");
+			alert("Please fill all fields...!!!!!!");
+		}
+		else{
+			var start = convertDate(sDate,sTime);
+			var end = convertDate(eDate,eTime);
+			
+			$('#bookingList tbody').empty();
 
-		$('#bookingList tbody').empty();
-
-
-		$.post("php/getBookings.php",{start1:start, end1:end},
-		function(data) {
-			if(data.trim()=="error"){
-				alert("Failed!");
-			} else{
-				
-				var bookings = data.trim().split(";");
-				for(var i=0;i<bookings.length-1;i++)
-				{
-					addBookingToList(bookings[i]);
+			$.post("php/getBookings.php",{start1:start, end1:end},
+			function(data) {
+				if(data.trim()=="error"){
+					alert("Failed!");
+				} 
+				else if(data.trim()=="no results"){
+					alert("No bookings for this date time range!");
+				} 
+				else{
+					
+					var bookings = data.trim().split(";");
+					for(var i=0;i<bookings.length-1;i++)
+					{
+						addBookingToList(bookings[i]);
+					}
 				}
-			}
-		});
-		
+			});
+		}
 	});
 	
-	/*
-	$("#back").click(function(){
-		window.location.href="userPage.html";	
-	});
-	*/
 	$("#logout").click(function(){
 		window.location.href="index.html";		
 	});

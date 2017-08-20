@@ -6,7 +6,6 @@
 	$start= $_POST['start1']; 
 	$end= $_POST['end1']; 
 	
-	// Matching user input email and password with stored email and password in database.
 	$result = mysqli_query($connection, "SELECT * FROM bookings 
 	where start BETWEEN STR_TO_DATE('$start','%d-%m-%Y %T') AND STR_TO_DATE('$end','%d-%m-%Y %T')
 	OR end BETWEEN STR_TO_DATE('$start','%d-%m-%Y %T') AND STR_TO_DATE('$end','%d-%m-%Y %T')
@@ -22,10 +21,12 @@
 		"Start: ".$startDate." "."End: ".$endDate.";";
 		
 	}
-   
+    $data = mysqli_num_rows($result);
+	if($data==0){
+		echo "no results";
+    }
 	if($result){
 		echo $message;
-		//header("location: ../frontpage.html");
 	}else{
 		echo "error";
 	}

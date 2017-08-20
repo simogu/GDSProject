@@ -20,14 +20,14 @@
 		echo "Booking date time range overlaps previous bookings. Please choose another date time range";
 	}
 	else{
-		// Matching user input email and password with stored email and password in database.
+		
 		$result = mysqli_query($connection, "INSERT INTO bookings (username,roomnumber,start,end) values ('$username','$roomnumber',STR_TO_DATE('$start','%d-%m-%Y %T'),STR_TO_DATE('$end','%d-%m-%Y %T'));");
 		
 		if($result){
-			echo "Booking Success!";
-			//header("location: ../frontpage.html");
+			echo "ok";
+	
 		}else{
-			echo "Booking Failed".$result;
+			echo "error";
 		}
 	}
 	mysqli_close ($connection); // Connection Closed.

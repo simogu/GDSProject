@@ -8,10 +8,6 @@ $(document).ready(function () {
 		function(data) {
 			if(data.trim()=="ok") {
 				document.getElementById("registerRoom").style.visibility="visible";
-			}else if(data.trim()=="error"){
-				//alert("Error!");
-			} else{
-				alert("\""+data+"\"");
 			}
 		});
 		
@@ -29,6 +25,12 @@ $(document).ready(function () {
 			//$('input[type="text"],input[type="password"]').css("border","2px solid red");
 			//$('input[type="text"],input[type="password"]').css("box-shadow","0 0 3px red");
 			alert("Please fill all fields...!!!!!!");
+			
+		}
+		else if( !$.isNumeric(roomnumber) || !$.isNumeric(capacity)){
+			//$('input[type="text"],input[type="password"]').css("border","2px solid red");
+			//$('input[type="text"],input[type="password"]').css("box-shadow","0 0 3px red");
+			alert("Please enter only numbers!!!");
 		}else {
 			$.post("php/registerRoom.php",{ roomnumber1: roomnumber, capacity1:capacity},
 			function(data) {
@@ -39,7 +41,7 @@ $(document).ready(function () {
 				}else if(data.trim()=="error"){
 					alert("Registration Failed!");
 				} else{
-					alert("\""+data+"\"");
+					alert(data.trim());
 				}
 			});
 		}

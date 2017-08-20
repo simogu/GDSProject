@@ -5,8 +5,6 @@
 	$db = mysqli_select_db($connection, "project"); // Selecting Database.
 	$username= $_POST['username1']; 
 	
-	
-	// Matching user input email and password with stored email and password in database.
 	$result = mysqli_query($connection, "SELECT * FROM users2
 	where username='$username';");
 	$message="";
@@ -16,7 +14,7 @@
 			echo "ok";	
 		}
 		else{
-			echo "error";
+			echo "not admin";
 		}
 	}
    

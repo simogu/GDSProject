@@ -43,7 +43,7 @@ $(document).ready(function(){
 				}else if(data.trim()=="error"){
 					alert("Registration Failed!");
 				} else{
-					alert("\""+data+"\"");
+					alert(data.trim());
 				}
 			});
 		}

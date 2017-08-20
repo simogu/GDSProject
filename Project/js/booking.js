@@ -9,10 +9,6 @@ $(document).ready(function () {
 		function(data) {
 			if(data.trim()=="ok") {
 				document.getElementById("registerRoom").style.visibility="visible";
-			}else if(data.trim()=="error"){
-				//alert("Error!");
-			} else{
-				alert("\""+data+"\"");
 			}
 		});
 
@@ -35,28 +31,32 @@ $(document).ready(function () {
 		var username = document.getElementById("username").innerHTML;
 		var roomNo = $("#roomList").val();
 		roomNo = roomNo.substring(roomNo.indexOf(":")+2,roomNo.indexOf("Capacity")-1);
-		var sDate = $("#startdate").val()
-		var sTime = $("#starttime").val()
-		var eDate = $("#enddate").val()
-		var eTime = $("#endtime").val()
-		var start = convertDate(sDate,sTime);
-		var end = convertDate(eDate,eTime);
-		
-		
-		$.post("php/bookRoom.php",{ username1: username, roomnumber1:roomNo, start1:start, end1:end},
-		function(data) {
-			if(data.trim()=="ok") {
-				//$("form")[0].reset();
-				//alert("Login Ok!");
-				alert("Booking Succeeded!");
-				
-			}else if(data.trim()=="error"){
-				alert("Booking failed!");
-			} else{
-				alert("\""+data+"\"");
-			}
-		});
-		
+		var sDate = $("#startdate").val();
+		var sTime = $("#starttime").val();
+		var eDate = $("#enddate").val();
+		var eTime = $("#endtime").val();
+		if( sDate =='' || sTime =='' || eDate =='' || eTime ==''){
+			//$('input[type="text"],input[type="password"]').css("border","2px solid red");
+			//$('input[type="text"],input[type="password"]').css("box-shadow","0 0 3px red");
+			alert("Please fill all fields...!!!!!!");
+		}
+		else
+		{
+			var start = convertDate(sDate,sTime);
+			var end = convertDate(eDate,eTime);
+			
+			$.post("php/bookRoom.php",{ username1: username, roomnumber1:roomNo, start1:start, end1:end},
+			function(data) {
+				if(data.trim()=="ok") {
+					alert("Booking Succeeded!");
+					
+				}else if(data.trim()=="error"){
+					alert("Booking failed!");
+				} else{
+					alert(data.trim());
+				}
+			});
+		}
 	});
 	
 	$("#logout").click(function(){
@@ -101,7 +101,5 @@ function convertDate(date,time)
 	$( "#endtime" ).timepicker();
   });
   
-  $(function() {
-    
-  });
+ 
 
